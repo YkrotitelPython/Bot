@@ -335,56 +335,62 @@ Price: 20$""",
         )
     
 
-# ----- Меню с подменю -----
+# ---------------- Обработка кнопок ----------------
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    # --- Главное меню (только текст) ---
-    if query.data in ('text1', 'text2', 'text3'):
-        await query.edit_message_text(
-            text=button_texts.get(query.data, "Текст отсутствует"),
-            reply_markup=main_menu()
-        )
-        return
+    data = query.data
 
-    # --- Подменю с фото (кроме Invalids) ---
-    elif query.data in submenus and query.data not in ("inv_1", "inv_2", "inv_3", "inv_4"):
+    # --- Главное меню (только текст) ---
+    if data in ('text1', 'text2', 'text3'):
         await query.edit_message_text(
-            text=button_texts.get(query.data, "Товар в дорозі"),
+            text=button_texts.get(data, "Текст отсутствует"),
             reply_markup=main_menu()
-        )
-        await send_photos_from_folder(
-            chat_id=query.message.chat_id,
-            context=context,
-            folder_path=submenus[query.data]
         )
         return
 
     # --- Подменю Invalids (только текст) ---
-    elif query.data in ("inv_1", "inv_2", "inv_3", "inv_4"):
+    if data in ("inv_1", "inv_2", "inv_3", "inv_4"):
         await query.edit_message_text(
-            text=button_texts[query.data],
+            text=button_texts.get(data, "Текст отсутствует"),
             reply_markup=invalid_menu()
         )
         return
 
+    # --- Подменю с фото (кроме Invalids) ---
+    if data in submenus:
+        # Сначала отправляем текст
+        await query.edit_message_text(
+            text=button_texts.get(data, "Товар в дорозі"),
+            reply_markup=main_menu()
+        )
+        # Если путь существует, отправляем фото
+        folder_path = submenus[data]
+        if folder_path and os.path.exists(folder_path):
+            await send_photos_from_folder(
+                chat_id=query.message.chat_id,
+                context=context,
+                folder_path=folder_path
+            )
+        return
+
     # --- Меню с подменю ---
-    elif query.data == 'menu_forex':
+    if data == 'menu_forex':
         await query.edit_message_text(
             "📊 Price Forex\nВыберите предложение:",
             reply_markup=forex_menu()
         )
         return
 
-    elif query.data == 'menu_charge':
+    if data == 'menu_charge':
         await query.edit_message_text(
             "💳 Price Charge\nВыберите предложение:",
             reply_markup=charge_menu()
         )
         return
 
-    elif query.data == 'menu_invalid':
+    if data == 'menu_invalid':
         await query.edit_message_text(
             "❌ Invalids\nВыберите предложение:",
             reply_markup=invalid_menu()
@@ -392,12 +398,13 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     # --- Назад ---
-    elif query.data == 'back_main':
+    if data == 'back_main':
         await query.edit_message_text(
             "Главное меню:",
             reply_markup=main_menu()
         )
         return
+
 
     # ---------------- Запуск ----------------
 def main():
