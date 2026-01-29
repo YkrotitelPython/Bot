@@ -335,13 +335,42 @@ Price: 20$""",
         )
     
 
-    # ----- Меню с подменю -----
+# ----- Меню с подменю -----
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    # --- МЕНЮ ---
-    if query.data == 'menu_forex':
+    # --- Главное меню (только текст) ---
+    if query.data in ('text1', 'text2', 'text3'):
+        await query.edit_message_text(
+            text=button_texts.get(query.data, "Текст отсутствует"),
+            reply_markup=main_menu()
+        )
+        return
+
+    # --- Подменю с фото (кроме Invalids) ---
+    elif query.data in submenus and query.data not in ("inv_1", "inv_2", "inv_3", "inv_4"):
+        await query.edit_message_text(
+            text=button_texts.get(query.data, "Товар в дорозі"),
+            reply_markup=main_menu()
+        )
+        await send_photos_from_folder(
+            chat_id=query.message.chat_id,
+            context=context,
+            folder_path=submenus[query.data]
+        )
+        return
+
+    # --- Подменю Invalids (только текст) ---
+    elif query.data in ("inv_1", "inv_2", "inv_3", "inv_4"):
+        await query.edit_message_text(
+            text=button_texts[query.data],
+            reply_markup=invalid_menu()
+        )
+        return
+
+    # --- Меню с подменю ---
+    elif query.data == 'menu_forex':
         await query.edit_message_text(
             "📊 Price Forex\nВыберите предложение:",
             reply_markup=forex_menu()
@@ -362,29 +391,14 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    # --- КНОПКИ С ФОТО ---
-    elif query.data in submenus:
-        await query.edit_message_text(
-            text=button_texts.get(query.data, "Товар в дорозі"),
-            reply_markup=main_menu()
-        )
-        await send_photos_from_folder(query.message, submenus[query.data])
-        return
-
-    # --- КНОПКИ ТОЛЬКО С ТЕКСТОМ (INVALIDS) ---
-    elif query.data in ("inv_1", "inv_2", "inv_3", "inv_4"):
-        await query.edit_message_text(
-            text=button_texts[query.data],
-            reply_markup=invalid_menu()
-        )
-        return
-
-    # --- НАЗАД ---
+    # --- Назад ---
     elif query.data == 'back_main':
         await query.edit_message_text(
             "Главное меню:",
             reply_markup=main_menu()
         )
+        return
+
     # ---------------- Запуск ----------------
 def main():
     app = Application.builder().token(TOKEN).build()
