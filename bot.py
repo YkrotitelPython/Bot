@@ -43,7 +43,11 @@ button_texts = {
     "inv_2": """текст""",
     "inv_3": """текст""",
     "inv_4": """текст """
-    
+#-----Текст прайс,ордер, наша команда---
+    "text1": """Текст"""  
+    "text2": """Текст"""
+    "text3": """текст"""
+    "text4": """текст"""
 }
 
 # ---------------- Главное меню ----------------
@@ -53,7 +57,7 @@ def main_menu():
          InlineKeyboardButton("Order", callback_data='text2')],
         [InlineKeyboardButton("Price Forex", callback_data='text3'),
          InlineKeyboardButton("GEO Fx", callback_data='menu_forex')],
-        [InlineKeyboardButton("Price Charge", callback_data='text5'),
+        [InlineKeyboardButton("Price Charge", callback_data='text4'),
          InlineKeyboardButton("GEO ChB", callback_data='menu_charge')],
         [InlineKeyboardButton("Invalids", callback_data='menu_invalid')]
     ]
@@ -143,58 +147,33 @@ async def send_photos_from_folder(chat_id, context, folder_path):
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-
-    # ----- Главное меню (тут менять только  текст) -----
-    if query.data == 'text1':
-        await query.edit_message_text(
-            """текст""",
-            reply_markup=main_menu()
-        )
-    elif query.data == 'text2': #----кнопка Order----
-        await query.edit_message_text(
-            """текст""",
-            reply_markup=main_menu()
-        )
-    elif query.data == 'text3': #-----Price Forex----
-        await query.edit_message_text(
-            """текст""",
-            reply_markup=main_menu()
-        )
-    
-
-# ---------------- Обработка кнопок ----------------
-async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-
     data = query.data
 
     # --- Главное меню (только текст) ---
-    if data in ('text1', 'text2', 'text3'):
+    if data in ('text1', 'text2', 'text3', 'text4'):
         await query.edit_message_text(
-            text=button_texts.get(data, "Текст отсутствует"),
+            text=button_texts.get(data, "скоро что-то будет"),
             reply_markup=main_menu()
         )
         return
 
-    # --- Подменю Invalids (только текст) ---
-    if data in ("inv_1", "inv_2", "inv_3", "inv_4"):
+    # --- Invalids (только текст) ---
+    if data in ('inv_1', 'inv_2', 'inv_3', 'inv_4'):
         await query.edit_message_text(
             text=button_texts.get(data, "Текст отсутствует"),
             reply_markup=invalid_menu()
         )
         return
 
-    # --- Подменю с фото (кроме Invalids) ---
+    # --- GEO с фото ---
     if data in submenus:
-        # Сначала отправляем текст
         await query.edit_message_text(
             text=button_texts.get(data, "Товар в дорозі"),
             reply_markup=main_menu()
         )
-        # Если путь существует, отправляем фото
+
         folder_path = submenus[data]
-        if folder_path and os.path.exists(folder_path):
+        if os.path.exists(folder_path):
             await send_photos_from_folder(
                 chat_id=query.message.chat_id,
                 context=context,
@@ -202,7 +181,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
         return
 
-    # --- Меню с подменю ---
+    # --- Подменю ---
     if data == 'menu_forex':
         await query.edit_message_text(
             "📊 Price Forex\nВыберите предложение:",
@@ -230,7 +209,6 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Главное меню:",
             reply_markup=main_menu()
         )
-        return
 
 
     # ---------------- Запуск ----------------
