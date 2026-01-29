@@ -39,55 +39,10 @@ button_texts = {
 #----------------Текст оферов когда нажимаешь на кнопку офферов Чарж-------------
     "ChEU-RU_1": "GEO: Charge EU-RU\nCR 6%\nFunnels: Юрка\nSource: GG,FB\nPrice: 100$",
 #---Текст  кнопок Invalids------
-   "inv_1": """Invalids: 
-Wrong Number 
-Wrong country
-Wrong Person
-Wrong Info
-No Language
-Under Age
-Didn’t register
-
-
- -Сверка каждый понедельник или день в день для закрытия дневного пролива.
- -Замена невалидов осуществляется на следующий день после подачи 
-
-При невалиде выше 20% необходимо предоставить записи разговоров""",
-    "inv_2": """Invalids: 
-Wrong info  
-Wrong number  
-Duplicate 
-Invalid language
-Fraud (пранкер  - троль)
-Autologin 70/30
-autoingekct ( бот ip/proxy)  
-Didn’t register
-Fake registartion (лид  говорит что  регистрировался  вчера и  более  дней  назад)
-Wrong country
-Under age: 21
-Over age: 75
-Test
-
-
- -Сверка и оплата понедельник - среда 
- При невалиде выше 20% предоставляем записи разговоров.
- Все остальные по запросу
- Мы рады работать с вами)""",
-    "inv_3": """Доброе утро 🤗
-Давайте сверимся  по невалиду  за прошлую неделю!
-
-Предоставьте следующую информацию:
-1. GEO
-2. Количество - сколько получили  
-3. Invalids  
-Почта - Статус - Комментарий
-Компания Consulting Leads жедает Вам Прибыльной недели)""",
-    "inv_4": """Всем приветДавайте сверимся за прошлую неделю:
-GEO:
-Total Leads:
-Invalid:
-Valid:
-Total sum: """
+   "inv_1": """текст""",
+    "inv_2": """текст""",
+    "inv_3": """текст""",
+    "inv_4": """текст """
     
 }
 
@@ -192,145 +147,17 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # ----- Главное меню (тут менять только  текст) -----
     if query.data == 'text1':
         await query.edit_message_text(
-            """Всем привет 🤗
-Рады Знакомству 🤝
-
-Наши рабочие дни :
-      Пн - ПТ
- 10:00 - 19:00 
-      
-Принимаем капы до 18:00 (За день до пролива ) 
-Шаблона  заказа : 
-GEO - 
-Lead Per day -
-
-Давайте  знакомится  с нашей командой:
-  @Alex_ConsultingLeads - Finance
-  @Consulting_Leads - CEO
-  @Alena_Co_Leads - Affiliate manager
-  @Consulting_Leads_Antony - Affiliate manager
-  @Consultingleads_Support - Тех. поддержка""",
+            """текст""",
             reply_markup=main_menu()
         )
     elif query.data == 'text2': #----кнопка Order----
         await query.edit_message_text(
-            """Кош  Январь
-
-GEO:
-Funnel:
-
-Work Hours:
-Lead per day:
-
-Lead Price:
-Total Leads:
-
-Total Sum: 
-
-Wallet USDT TRC20:
-TMy1WXpPiXgLnoZD8GcFWm6p9Vpb4pG3mn
-""",
+            """текст""",
             reply_markup=main_menu()
         )
     elif query.data == 'text3': #-----Price Forex----
         await query.edit_message_text(
-            """
-GEO:ES-ES  
-CR:16%
-Funnels: ai-app, bitfinex-invest*
-Source: Outbrain
-Price:1800+14%
-
-GEO:JP-JP 
-CR 12% 
-Funnels: Quantum-elite, Finance-app
-Source:Native
-Price:1450$+11% 
-
-GEO:CA EN
-CR 12%
-Funnel: bitcoin-ai, quantum, trader-ai, gpt
-Source:Native
-Price:1500+11%
-
-GEO:IT-IT
-CR:15%+
-Funnels: ai-app, valioro-ai
-Source: Outbrain
-Price:1800+14%
-
-GEO:TR-EU
-СR: 10%
-Funnels: Baykar ,WhatsApp, revolut, Turkiairinvest,Turkishairlines,Socar
-Source: FB
-Price: 1100+10%
-Pull geo: CH,AT,BE,CZ,DK,FI,FR,DE,GR,IS,IE,IT,LI,LU, MT,NL,NO,PL,PT,RO,ES,SE,CH,TR,GB
-
-GEO:RO-RO 
-CR: 8% 
-Funnels: Hidroelectrica, SCI, Neptun deep, CGI, OMV PETROM
-Source: FB
-Price: 75$ 
-
-GEO:Ru-EU 
-CR:5%
-Funnels GPT Trade Global, Quantum System, Algorithm, WhatsApp Invest, Revolut, Поддержка наших(<5%)
-Source:FB+Native 
-Price: 95$
-
-GEO:PL-EU 
-CR:8-9%
-Funnels:ChatGPT trade 
-SourceFb+Native
-Price: 1400+9% 
-
-GEO:PL-PL
-CR:10%
-Funnels:ChatGPT trade 
-SourceFb+Native
-Price: 1400+11% 
-
-GEO:IT-IT
-Cr: 7%
-Funnels: Revolut
-Source :FB
-Price: 90$
-
-GEO:UK(EN) 
-CR:10-11% 
-Funnels:PrimecrestVoryx, QuantumAI, WealthProgram, InteractiveTrader
-Price:1300+10%
-Source: FB+SEO+in-app
-
-GEI:DE-DE 
-CR:13% 
-Funnels:KI Platform, Quantum
-Source: FB+SEO+in-app
-Price:1700+13%
-
-GEO:CZ_CZ 
-CR:11-12%  
-Funnels:TempoInvion
-Source: FB+SEO
-Priece:1300+10%
-
-GEO:IT-IT 
-CR:12%  
-Funnels:Senvix, TrevaloxanoPro
-Source: FB/SEO/IN-APP
-Price: 1300+10%
-
-GEO:ES-ES 
-CR:12% 
-Funnels:ElMundo
-Source: FB/SEO/IN-APP
-Price: 1500+12%
-
-Geo: UZ-ru
-CR: 3.5-4%
-Funnel: USM, Hamkorbank
-Source: FB
-Price: 20$""",
+            """текст""",
             reply_markup=main_menu()
         )
     
