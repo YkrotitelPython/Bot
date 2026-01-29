@@ -110,12 +110,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Главное меню:",
         reply_markup=main_menu()
     )
-
-# ---------------- Функция отправки фото ----------------
-async def send_photos_from_folder(chat_id, context, folder_path):
+#------фото
+async def send_photos_from_folder(chat_id, context, folder_path, thread_id=None):
     if not os.path.exists(folder_path):
         await context.bot.send_message(
             chat_id=chat_id,
+            message_thread_id=thread_id,
             text="🚚 Товар в дорозі"
         )
         return
@@ -127,12 +127,12 @@ async def send_photos_from_folder(chat_id, context, folder_path):
             media.append(
                 InputMediaPhoto(
                     media=open(os.path.join(folder_path, file), "rb")
-                )
-            )
+        ))
 
     if not media:
         await context.bot.send_message(
             chat_id=chat_id,
+            message_thread_id=thread_id,
             text="🚚 Товар в дорозі"
         )
         return
@@ -140,14 +140,17 @@ async def send_photos_from_folder(chat_id, context, folder_path):
     for i in range(0, len(media), 10):
         await context.bot.send_media_group(
             chat_id=chat_id,
+            message_thread_id=thread_id,
             media=media[i:i+10]
         )
+
 
 # ---------------- Обработка кнопок ----------------
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-    data = query.data
+
+    data = query.data  # ← обязательно, иначе будет ошибка
 
     # --- Главное меню (только текст) ---
     if data in ('text1', 'text2', 'text3', 'text4'):
@@ -167,17 +170,18 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # --- GEO с фото ---
     if data in submenus:
+        folder_path = submenus[data]  # ← присвоение обязательно
         await query.edit_message_text(
             text=button_texts.get(data, "Товар в дорозі"),
             reply_markup=main_menu()
         )
 
-        folder_path = submenus[data]
         if os.path.exists(folder_path):
             await send_photos_from_folder(
                 chat_id=query.message.chat_id,
                 context=context,
-                folder_path=folder_path
+                folder_path=folder_path,
+                thread_id=query.message.message_thread_id  # если нужно отправлять в тему
             )
         return
 
@@ -209,6 +213,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Главное меню:",
             reply_markup=main_menu()
         )
+        return
 
 
     # ---------------- Запуск ----------------
@@ -220,4 +225,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
