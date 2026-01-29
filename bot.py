@@ -327,7 +327,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    # ----- Главное меню с подменю -----
+    # --- МЕНЮ ---
     if query.data == 'menu_forex':
         await query.edit_message_text(
             "📊 Price Forex\nВыберите предложение:",
@@ -349,32 +349,29 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    # ----- Кнопки только с текстом (inv_1..inv_4) -----
-    elif query.data in button_texts:
-        text_to_send = button_texts[query.data]
-        await query.edit_message_text(
-            text=text_to_send,
-            reply_markup=invalid_menu()
-        )
-        return  # НЕ отправляем фото
-
-    # ----- Кнопки с фото (только если путь прописан в submenus) -----
+    # --- КНОПКИ С ФОТО ---
     elif query.data in submenus:
-        text_to_send = button_texts.get(query.data, "Товар в дорозі")
         await query.edit_message_text(
-            text=text_to_send,
-            reply_markup=invalid_menu()
+            text=button_texts.get(query.data, "Товар в дорозі"),
+            reply_markup=main_menu()
         )
         await send_photos_from_folder(query.message, submenus[query.data])
         return
 
-    # ----- Кнопка "назад" -----
-    elif query.data == "back_main":
+    # --- КНОПКИ ТОЛЬКО С ТЕКСТОМ (INVALIDS) ---
+    elif query.data in ("inv_1", "inv_2", "inv_3", "inv_4"):
         await query.edit_message_text(
-            "Главное меню",
+            text=button_texts[query.data],
+            reply_markup=invalid_menu()
+        )
+        return
+
+    # --- НАЗАД ---
+    elif query.data == 'back_main':
+        await query.edit_message_text(
+            "Главное меню:",
             reply_markup=main_menu()
         )
-
     # ---------------- Запуск ----------------
 def main():
     app = Application.builder().token(TOKEN).build()
