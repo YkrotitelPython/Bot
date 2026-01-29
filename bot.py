@@ -153,24 +153,37 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 # ---------------- Функция отправки фото ----------------
-async def send_photos_from_folder(message, folder_path):
+async def send_photos_from_folder(chat_id, context, folder_path):
     if not os.path.exists(folder_path):
-        await message.reply_text(f"🚚 Товар в дорозі: {folder_path}")
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text="🚚 Товар в дорозі"
+        )
         return
 
     media = []
+
     for file in os.listdir(folder_path):
-        # Отправляем jpg, jpeg и png
         if file.lower().endswith((".jpg", ".jpeg", ".png")):
-            media.append(InputMediaPhoto(open(os.path.join(folder_path, file), "rb")))
+            media.append(
+                InputMediaPhoto(
+                    media=open(os.path.join(folder_path, file), "rb")
+                )
+            )
 
     if not media:
-        await message.reply_text("🚚 Товар в дорозі")
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text="🚚 Товар в дорозі"
+        )
         return
 
-    # Отправка альбомами по 10 фото
     for i in range(0, len(media), 10):
-        await message.reply_media_group(media[i:i+10])
+        await context.bot.send_media_group(
+            chat_id=chat_id,
+            media=media[i:i+10]
+        )
+
 # ---------------- Обработка кнопок ----------------
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
