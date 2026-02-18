@@ -21,19 +21,19 @@ submenus = {
 }
 #----------------словарь офферов-------------№
     button_texts = {
-    "Jp_1": "GEO: JP-JP\nCR 12%\nFunnels: Quantum-elite. Finance-app.\nSource: Native\nPrice: 1450$+11%",
-    "Es_2": "GEO: ES-ES\nCR 11%\nFunnels: SuperFunnels\nSource: Native\nPrice: 1350$",
-    "Pl_3": "GEO: PL-PL\nCR 10%\nFunnels: FastFunnels\nSource: Native\nPrice: 1250$",
-    "It_4": "GEO: IT-IT\nCR 9%\nFunnels: ITFunnels\nSource: Native\nPrice: 1100$",
-    "Ca_5": "GEO: CA-EN\nCR 8%\nFunnels: CanadaFunnels\nSource: Native\nPrice: 1400$",
-    "Uk_6": "GEO: UK-EN\nCR 12%\nFunnels: UKFunnels\nSource: Native\nPrice: 1450$",
-    "Tru_7": "GEO: TR-EU\nCR 10%\nFunnels: TRFunnels\nSource: Native\nPrice: 1200$",
-    "Ro_8": "GEO: RO-RO\nCR 9%\nFunnels: ROFunnels\nSource: Native\nPrice: 1100$",
-    "RuE_9": "GEO: RU-EU\nCR 13%\nFunnels: RUEFunnels\nSource: Native\nPrice: 1500$",
-    "PlE_10": "GEO: PL-EU\nCR 10%\nFunnels: PLEFunnels\nSource: Native\nPrice: 1250$",
-    "De_11": "GEO: DE-DE\nCR 11%\nFunnels: DEFunnels\nSource: Native\nPrice: 1300$",
-    "Cz_12": "GEO: CZ-CZ\nCR 9%\nFunnels: CZFunnels\nSource: Native\nPrice: 1100$",
-    "UzR_13": "GEO: UZ-RU\nCR 12%\nFunnels: UZFunnels\nSource: Native\nPrice: 1450$"
+    "Jp_1": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "Es_2": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "Pl_3": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "It_4": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "Ca_5": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "Uk_6": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "Tru_7": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "Ro_8": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "RuE_9": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "PlE_10": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "De_11": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "Cz_12": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
+    "UzR_13": "GEO: \nCR \nFunnels: \nSource: \nPrice: ",
 }
 
 # ---------------- Главное меню ----------------
@@ -123,143 +123,19 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text(
             """Всем привет 🤗
 Рады Знакомству 🤝
-
-Наши рабочие дни :
-      Пн - ПТ
- 10:00 - 19:00 
-      
-Принимаем капы до 18:00 (За день до пролива ) 
-Шаблона  заказа : 
-GEO - 
-Lead Per day -
-
-Давайте  знакомится  с нашей командой:
-  @Alex_ConsultingLeads - Finance
-  @Consulting_Leads - CEO
-  @Alena_Co_Leads - Affiliate manager
-  @Consulting_Leads_Antony - Affiliate manager
-  @Consultingleads_Support - Тех. поддержка""",
+""",
             reply_markup=main_menu()
         )
     elif query.data == 'text2':
         await query.edit_message_text(
-            """Кош  Январь
-
-GEO:
-Funnel:
-
-Work Hours:
-Lead per day:
-
-Lead Price:
-Total Leads:
-
-Total Sum: 
-
-Wallet USDT TRC20:
-TMy1WXpPiXgLnoZD8GcFWm6p9Vpb4pG3mn
+            """Кош  
 """,
             reply_markup=main_menu()
         )
     elif query.data == 'text3':
         await query.edit_message_text(
             """
-GEO:ES-ES  
-CR:16%
-Funnels: ai-app, bitfinex-invest*
-Source: Outbrain
-Price:1800+14%
-
-GEO:JP-JP 
-CR 12% 
-Funnels: Quantum-elite, Finance-app
-Source:Native
-Price:1450$+11% 
-
-GEO:CA EN
-CR 12%
-Funnel: bitcoin-ai, quantum, trader-ai, gpt
-Source:Native
-Price:1500+11%
-
-GEO:IT-IT
-CR:15%+
-Funnels: ai-app, valioro-ai
-Source: Outbrain
-Price:1800+14%
-
-GEO:TR-EU
-СR: 10%
-Funnels: Baykar ,WhatsApp, revolut, Turkiairinvest,Turkishairlines,Socar
-Source: FB
-Price: 1100+10%
-Pull geo: CH,AT,BE,CZ,DK,FI,FR,DE,GR,IS,IE,IT,LI,LU, MT,NL,NO,PL,PT,RO,ES,SE,CH,TR,GB
-
-GEO:RO-RO 
-CR: 8% 
-Funnels: Hidroelectrica, SCI, Neptun deep, CGI, OMV PETROM
-Source: FB
-Price: 75$ 
-
-GEO:Ru-EU 
-CR:5%
-Funnels GPT Trade Global, Quantum System, Algorithm, WhatsApp Invest, Revolut, Поддержка наших(<5%)
-Source:FB+Native 
-Price: 95$
-
-GEO:PL-EU 
-CR:8-9%
-Funnels:ChatGPT trade 
-SourceFb+Native
-Price: 1400+9% 
-
-GEO:PL-PL
-CR:10%
-Funnels:ChatGPT trade 
-SourceFb+Native
-Price: 1400+11% 
-
-GEO:IT-IT
-Cr: 7%
-Funnels: Revolut
-Source :FB
-Price: 90$
-
-GEO:UK(EN) 
-CR:10-11% 
-Funnels:PrimecrestVoryx, QuantumAI, WealthProgram, InteractiveTrader
-Price:1300+10%
-Source: FB+SEO+in-app
-
-GEI:DE-DE 
-CR:13% 
-Funnels:KI Platform, Quantum
-Source: FB+SEO+in-app
-Price:1700+13%
-
-GEO:CZ_CZ 
-CR:11-12%  
-Funnels:TempoInvion
-Source: FB+SEO
-Priece:1300+10%
-
-GEO:IT-IT 
-CR:12%  
-Funnels:Senvix, TrevaloxanoPro
-Source: FB/SEO/IN-APP
-Price: 1300+10%
-
-GEO:ES-ES 
-CR:12% 
-Funnels:ElMundo
-Source: FB/SEO/IN-APP
-Price: 1500+12%
-
-Geo: UZ-ru
-CR: 3.5-4%
-Funnel: USM, Hamkorbank
-Source: FB
-Price: 20$""",
+TEST""",
             reply_markup=main_menu()
         )
     elif query.data == 'text5':
@@ -271,7 +147,7 @@ Price: 20$""",
     # ----- Меню с подменю -----
     elif query.data == 'menu_forex':
         await query.edit_message_text(
-            "📊 Price Forex\nВыберите предложение:",
+            "📊 Price A\nВыберите предложение:",
             reply_markup=forex_menu()
         )
     elif query.data == 'menu_charge':
